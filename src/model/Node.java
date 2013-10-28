@@ -31,4 +31,8 @@ public class Node {
     public Node getNeighbor() {
         return link.getDestination();
     }
+
+    public boolean hasNeighbor() {
+        return null != getNeighbor();
+    }
 }

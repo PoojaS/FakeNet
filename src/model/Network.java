@@ -25,8 +25,4 @@ public class Network {
         }
         return sourceNodes;
     }
-
-    public List<Node> allNodes() {
-        return nodes;
-    }
 }
