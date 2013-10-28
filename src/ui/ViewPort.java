@@ -1,7 +1,10 @@
 package ui;
 
 
-import javax.swing.*;
+import model.Node;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,17 @@ public class ViewPort extends JPanel {
     private List<Plottable> plottables;
     private List<Component> components;
 
-    public ViewPort() {
+    public ViewPort(List<Box> boxes) {
         plot = new Plot();
         plottables = new ArrayList<Plottable>();
         components = new ArrayList<Component>();
+        buildViewPort(boxes);
+    }
+
+    private void buildViewPort(List<Box> boxes) {
+        for (Box box : boxes) {
+            add(box);
+        }
     }
 
     public void add(Plottable plottable) {
