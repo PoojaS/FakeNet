@@ -9,13 +9,13 @@ import java.util.List;
 public class ViewPort extends JPanel {
 
     private Plot plot;
-    private List<Plottable> plottables;
+    private List<Component> components;
     private final JFrame frame;
 
     public ViewPort(List<? extends Plottable> boxes) {
         frame = buildFrame();
         plot = new Plot(frame.getWidth(), frame.getHeight());
-        plottables = plot.plotAll(boxes);
+        components = plot.plotAll(boxes);
     }
 
     private JFrame buildFrame() {
@@ -29,8 +29,8 @@ public class ViewPort extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        for (Plottable plottable : this.plottables) {
-            plottable.paint(graphics);
+        for (Component component : this.components) {
+            component.paint(graphics);
         }
     }
 

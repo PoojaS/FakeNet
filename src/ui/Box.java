@@ -11,5 +11,4 @@ public class Box extends Plottable {
     public void paint(Graphics graphics) {
         graphics.drawRect(point.getXpos(), point.getYpos(), SIZE, SIZE);
     }
-
 }

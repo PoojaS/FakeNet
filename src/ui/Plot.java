@@ -15,22 +15,18 @@ public class Plot {
         this.canvasHeight = canvasHeight;
     }
 
-    public List<Plottable> plotAll(List<? extends Plottable> sourceBoxes) {
-        List<Plottable> allPlottedBoxes = new ArrayList<Plottable>();
-
+    public List<Component> plotAll(List<? extends Plottable> sourceBoxes) {
+        List<Component> allPlottedComponents = new ArrayList<Component>();
         int initialX = 10;
         int initialY = 10;
-
         int offset = 0;
-
         for (Plottable sourceBox : sourceBoxes) {
             sourceBox.setVertex(new Point(initialX + offset, initialY));
             sourceBox.getNeighbor().setVertex(new Point((initialX + offset) + 100, initialY));
-            allPlottedBoxes.add(sourceBox);
-            allPlottedBoxes.add(sourceBox.getNeighbor());
+            allPlottedComponents.add(sourceBox);
+            allPlottedComponents.add(sourceBox.getNeighbor());
             offset += 300;
         }
-
-        return allPlottedBoxes;
+        return allPlottedComponents;
     }
 }
