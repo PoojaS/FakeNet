@@ -1,9 +1,8 @@
 package ui;
 
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class ViewPort extends JPanel {

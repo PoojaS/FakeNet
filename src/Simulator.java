@@ -4,8 +4,6 @@ import model.Network;
 import model.Node;
 import model.Router;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
