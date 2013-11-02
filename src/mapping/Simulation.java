@@ -1,6 +1,5 @@
 package mapping;
 
-import model.Network;
 import model.Node;
 import ui.Box;
 import ui.ViewPort;
@@ -12,18 +11,14 @@ public class Simulation {
 
     private ViewPort viewPort;
 
-    public Simulation(Network network) {
-        viewPort = new ViewPort(constructModel(network));
+    public Simulation(NetworkDefinition definition) {
+        viewPort = new ViewPort(constructModel(definition));
     }
 
-    private List<Box> constructModel(Network network) {
+    private List<Box> constructModel(NetworkDefinition definition) {
         List<Box> boxes = new ArrayList<Box>();
-        for (Node node : network.allSourceNodes()) {
-            if (node.hasNeighbor()) {
-                boxes.add(new Box().withNeighbor(new Box()));
-            } else {
-                boxes.add(new Box());
-            }
+        for (Node node : definition.network().allNodes()) {
+            boxes.add(new Box(definition.positionOf(node)));
         }
         return boxes;
     }

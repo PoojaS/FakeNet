@@ -13,7 +13,7 @@ public class ViewPort extends JPanel {
 
     public ViewPort(List<? extends Plottable> boxes) {
         frame = buildFrame();
-        plot = new Plot(frame.getWidth(), frame.getHeight());
+        plot = new Plot();
         components = plot.plotAll(boxes);
     }
 
@@ -34,7 +34,6 @@ public class ViewPort extends JPanel {
     }
 
     public void paint() {
-
         frame.setVisible(true);
     }
 }

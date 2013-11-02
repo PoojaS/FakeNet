@@ -14,15 +14,7 @@ public class Point {
         return xpos;
     }
 
-    public void setXpos(int xpos) {
-        this.xpos = xpos;
-    }
-
     public int getYpos() {
         return ypos;
-    }
-
-    public void setYpos(int ypos) {
-        this.ypos = ypos;
     }
 }

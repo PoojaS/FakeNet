@@ -1,15 +1,13 @@
 package model;
 
-import java.util.UUID;
-
 public class Node {
 
     private Link neighbor;
-    private String id;
     private Link link;
+    private String id;
 
-    public Node() {
-        id = UUID.randomUUID().toString();
+    public Node(String id) {
+        this.id = id;
     }
 
     public void receive(byte[] bytes) {
@@ -26,13 +24,5 @@ public class Node {
 
     public void addLink(Link link) {
         this.link = link;
-    }
-
-    public Node getNeighbor() {
-        return link.getDestination();
-    }
-
-    public boolean hasNeighbor() {
-        return null != getNeighbor();
     }
 }

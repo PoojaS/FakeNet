@@ -1,33 +1,22 @@
+import mapping.NetworkDefinition;
 import mapping.Simulation;
-import model.Link;
-import model.Network;
 import model.Node;
 import model.Router;
-
-import java.util.List;
-
-import static java.util.Arrays.asList;
 
 public class Simulator {
 
     private Simulation simulation;
 
-    private Node component(Node source, Node destination) {
-        Link link = new Link(destination);
-        source.addLink(link);
-        return source;
-    }
-
-    private Network network() {
-        Node constantRouter = new Router();
-        Node variableRouter = new Router();
-        List<Node> nodes = asList(
-                component(new Node(), constantRouter),
-                component(constantRouter, new Node()),
-                component(new Node(), variableRouter),
-                component(variableRouter, new Node())
-        );
-        return new Network(nodes);
+    private NetworkDefinition network() {
+        NetworkDefinition definition = new NetworkDefinition();
+        definition
+                .plot(new Node("A"), 10, 10)
+                .plot(new Router("X"), 20, 20)
+                .plot(new Node("B"), 30, 30)
+                .plot(new Router("Y"), 40, 40)
+                .plot(new Node("C"), 50, 50)
+                .link("A", "X");
+        return definition;
     }
 
     public Simulator() {

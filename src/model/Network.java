@@ -12,17 +12,7 @@ public class Network {
         this.nodes = nodes;
     }
 
-    public List<Node> allSourceNodes() {
-        List<Node> sourceNodes = new ArrayList<Node>();
-        for (Node node : nodes) {
-            sourceNodes.add(node);
-        }
-        for (int i = 0; i < sourceNodes.size(); ) {
-            boolean removed = sourceNodes.remove(sourceNodes.get(i).getNeighbor());
-            if (!removed) {
-                i++;
-            }
-        }
-        return sourceNodes;
+    public List<Node> allNodes() {
+        return new ArrayList<Node>(nodes);
     }
 }
