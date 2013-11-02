@@ -15,7 +15,11 @@ public class Simulator {
                 .plot(new Node("B"), 30, 30)
                 .plot(new Router("Y"), 40, 40)
                 .plot(new Node("C"), 50, 50)
-                .link("A", "X");
+                .link("A", "X")
+                .link("X", "B")
+                .link("X", "C")
+                .link("C", "Y")
+                .link("Y", "B");
         return definition;
     }
 

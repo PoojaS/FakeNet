@@ -7,14 +7,12 @@ import java.util.List;
 
 public class ViewPort extends JPanel {
 
-    private Plot plot;
     private List<Component> components;
     private final JFrame frame;
 
-    public ViewPort(List<? extends Plottable> boxes) {
+    public ViewPort(List<Component> plottedComponents) {
         frame = buildFrame();
-        plot = new Plot();
-        components = plot.plotAll(boxes);
+        components = plottedComponents;
     }
 
     private JFrame buildFrame() {

@@ -1,7 +1,10 @@
 package mapping;
 
+import model.Link;
 import model.Node;
 import ui.Box;
+import ui.Component;
+import ui.Line;
 import ui.ViewPort;
 
 import java.util.ArrayList;
@@ -15,12 +18,16 @@ public class Simulation {
         viewPort = new ViewPort(constructModel(definition));
     }
 
-    private List<Box> constructModel(NetworkDefinition definition) {
-        List<Box> boxes = new ArrayList<Box>();
+    private List<Component> constructModel(NetworkDefinition definition) {
+        List<Component> components = new ArrayList<Component>();
         for (Node node : definition.network().allNodes()) {
-            boxes.add(new Box(definition.positionOf(node)));
+            Box sourceBox = new Box(definition.positionOf(node));
+            components.add(sourceBox);
+            for (Link link : node.allNeighbors()) {
+                components.add(new Line(sourceBox, new Box(definition.positionOf(link.getDestination()))));
+            }
         }
-        return boxes;
+        return components;
     }
 
     public void paint() {

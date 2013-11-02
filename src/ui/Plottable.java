@@ -8,4 +8,8 @@ public abstract class Plottable implements Component {
     protected Plottable(Point point) {
         this.point = point;
     }
+
+    public Point getPosition() {
+        return point;
+    }
 }

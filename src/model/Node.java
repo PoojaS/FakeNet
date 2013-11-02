@@ -1,21 +1,20 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
 
-    private Link neighbor;
-    private Link link;
+    private List<Link> neighbors;
     private String id;
 
     public Node(String id) {
         this.id = id;
+        neighbors = new ArrayList<Link>();
     }
 
     public void receive(byte[] bytes) {
         System.out.println("Got " + bytes.length + " vadais from node");
-    }
-
-    public void transmit() {
-        neighbor.send(new byte[]{});
     }
 
     public String getId() {
@@ -23,6 +22,10 @@ public class Node {
     }
 
     public void addLink(Link link) {
-        this.link = link;
+        neighbors.add(link);
+    }
+
+    public List<Link> allNeighbors() {
+        return neighbors;
     }
 }
