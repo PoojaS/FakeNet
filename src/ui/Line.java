@@ -1,6 +1,8 @@
 package ui;
 
 
+import model.Link;
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +13,13 @@ public class Line implements Component {
 
     private Box source;
     private Box destination;
+    private Link link;
     private List<Point> checkpoints;
 
-    public Line(Box sourceBox, Box destination) {
+    public Line(Box sourceBox, Box destination, Link link) {
         source = sourceBox;
         this.destination = destination;
+        this.link = link;
         this.checkpoints = prettyPlot(source.midPointOnRightHandSide(), destination.midPointOnLeftHandSide());
     }
 

@@ -15,4 +15,10 @@ public class Network {
     public List<Node> allNodes() {
         return new ArrayList<Node>(nodes);
     }
+
+    public void moveUnitOfData() {
+        for (Node node : nodes) {
+            node.moveUnitOfData();
+        }
+    }
 }

@@ -2,7 +2,7 @@ package model;
 
 public class Link {
 
-    private Integer bandwidth;
+    private Integer bandwidth = 2;
     private Node destination;
 
     public Link(Node destination) {
@@ -15,5 +15,9 @@ public class Link {
 
     public Node getDestination() {
         return destination;
+    }
+
+    public Integer getBandwidth() {
+        return bandwidth;
     }
 }

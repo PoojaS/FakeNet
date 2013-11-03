@@ -1,16 +1,21 @@
 package ui;
 
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPort extends JPanel {
 
     private List<Component> components;
     private final JFrame frame;
+    private List<Component> redrawn;
+    private Graphics graphics;
 
-    public ViewPort(List<Component> plottedComponents) {
+    public ViewPort(List<Component> plottedComponents, List<Component> redrawn) {
+        this.redrawn = redrawn;
         frame = buildFrame();
         components = plottedComponents;
     }
@@ -26,12 +31,23 @@ public class ViewPort extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        for (Component component : this.components) {
+        this.graphics = graphics;
+        ArrayList<Component> allComponents = new ArrayList<Component>(components);
+        allComponents.addAll(redrawn);
+        for (Component component : allComponents) {
             component.paint(graphics);
         }
     }
 
     public void paint() {
         frame.setVisible(true);
+    }
+
+    public void redraw() {
+        if (graphics != null) {
+            for (Component component : redrawn) {
+                component.paint(graphics);
+            }
+        }
     }
 }

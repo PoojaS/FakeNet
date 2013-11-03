@@ -1,20 +1,22 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
 
-    private List<Link> neighbors;
+    private Neighbors neighbors;
     private String id;
+    private Buffer buffer;
 
     public Node(String id) {
         this.id = id;
-        neighbors = new ArrayList<Link>();
+        buffer = new Buffer();
+        neighbors = new Neighbors();
     }
 
     public void receive(byte[] bytes) {
-        System.out.println("Got " + bytes.length + " vadais from node");
+        System.out.println("Received " + bytes.length + " bytes of data");
+        buffer.append(bytes);
     }
 
     public String getId() {
@@ -26,6 +28,12 @@ public class Node {
     }
 
     public List<Link> allNeighbors() {
-        return neighbors;
+        return neighbors.all();
+    }
+
+    public void moveUnitOfData() {
+        if (neighbors.hadNeighbor()) {
+            neighbors.neighbor().send(buffer.read(neighbors.neighbor().getBandwidth()));
+        }
     }
 }

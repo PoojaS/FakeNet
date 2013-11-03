@@ -6,6 +6,7 @@ import model.Router;
 public class Simulator {
 
     private Simulation simulation;
+    private TimeKeeper timeKeeper;
 
     private NetworkDefinition network() {
         NetworkDefinition definition = new NetworkDefinition();
@@ -25,10 +26,12 @@ public class Simulator {
 
     public Simulator() {
         simulation = new Simulation(network());
+        timeKeeper = new TimeKeeper(simulation);
     }
 
     public void start() {
         simulation.paint();
+        timeKeeper.start();
     }
 
     public static void main(String args[]) {
