@@ -11,16 +11,12 @@ public class Simulator {
     private NetworkDefinition network() {
         NetworkDefinition definition = new NetworkDefinition();
         definition
-                .plot(new Node("A"), 10, 10)
-                .plot(new Router("X"), 20, 20)
-                .plot(new Node("B"), 30, 30)
-                .plot(new Router("Y"), 40, 40)
-                .plot(new Node("C"), 50, 50)
+                .plot(new Node("A"), 100, 100)
+                .plot(new Router("X"), 200, 200)
+                .plot(new Node("B"), 300, 100)
                 .link("A", "X")
                 .link("X", "B")
-                .link("X", "C")
-                .link("C", "Y")
-                .link("Y", "B");
+                .link("A", "B");
         return definition;
     }
 

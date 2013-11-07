@@ -3,6 +3,7 @@ package model;
 public class Link {
 
     private Integer bandwidth = 2;
+    private Integer wireDelayInSeconds = 2;
     private Node destination;
 
     public Link(Node destination) {
@@ -10,7 +11,12 @@ public class Link {
     }
 
     public void send(byte[] bytes) {
-        destination.receive(bytes);
+        try {
+            Thread.sleep(wireDelayInSeconds * 1000);
+            destination.receive(bytes);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Node getDestination() {

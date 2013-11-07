@@ -17,8 +17,13 @@ public class Network {
     }
 
     public void moveUnitOfData() {
-        for (Node node : nodes) {
-            node.moveUnitOfData();
+        for (final Node node : nodes) {
+            new Runnable() {
+                @Override
+                public void run() {
+                    node.moveUnitOfData();
+                }
+            }.run();
         }
     }
 }
