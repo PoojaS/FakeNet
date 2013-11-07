@@ -14,15 +14,15 @@ public class Point {
         return xpos;
     }
 
-    public void setXpos(int xpos) {
-        this.xpos = xpos;
-    }
-
     public int getYpos() {
         return ypos;
     }
 
-    public void setYpos(int ypos) {
-        this.ypos = ypos;
+    public Point midwayOnTheSameLineAsThisPoint(Point otherPoint) {
+        return new Point(xpos + ((otherPoint.getXpos() - xpos) / 2), ypos);
+    }
+
+    public Point midwayOnTheSameLineAsOtherPoint(Point otherPoint) {
+        return new Point(xpos + ((otherPoint.getXpos() - xpos) / 2), otherPoint.getYpos());
     }
 }

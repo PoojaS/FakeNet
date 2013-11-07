@@ -1,23 +1,22 @@
 package model;
 
-import java.util.UUID;
+import java.util.List;
 
 public class Node {
 
-    private Link neighbor;
+    private Neighbors neighbors;
     private String id;
-    private Link link;
+    private Buffer buffer;
 
-    public Node() {
-        id = UUID.randomUUID().toString();
+    public Node(String id) {
+        this.id = id;
+        buffer = new Buffer();
+        neighbors = new Neighbors();
     }
 
     public void receive(byte[] bytes) {
-        System.out.println("Got " + bytes.length + " vadais from node");
-    }
-
-    public void transmit() {
-        neighbor.send(new byte[]{});
+        System.out.println("Received " + bytes.length + " bytes of data");
+        buffer.append(bytes);
     }
 
     public String getId() {
@@ -25,14 +24,16 @@ public class Node {
     }
 
     public void addLink(Link link) {
-        this.link = link;
+        neighbors.add(link);
     }
 
-    public Node getNeighbor() {
-        return link.getDestination();
+    public List<Link> allNeighbors() {
+        return neighbors.all();
     }
 
-    public boolean hasNeighbor() {
-        return null != getNeighbor();
+    public void moveUnitOfData() {
+        if (neighbors.hadNeighbor()) {
+            neighbors.neighbor().send(buffer.read(neighbors.neighbor().getBandwidth()));
+        }
     }
 }

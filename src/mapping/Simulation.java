@@ -1,8 +1,10 @@
 package mapping;
 
-import model.Network;
+import model.Link;
 import model.Node;
 import ui.Box;
+import ui.Component;
+import ui.Line;
 import ui.ViewPort;
 
 import java.util.ArrayList;
@@ -11,24 +13,39 @@ import java.util.List;
 public class Simulation {
 
     private ViewPort viewPort;
+    private NetworkDefinition definition;
 
-    public Simulation(Network network) {
-        viewPort = new ViewPort(constructModel(network));
+    public Simulation(NetworkDefinition definition) {
+        this.definition = definition;
+        viewPort = new ViewPort(allNodes(), allLinks());
     }
 
-    private List<Box> constructModel(Network network) {
-        List<Box> boxes = new ArrayList<Box>();
-        for (Node node : network.allSourceNodes()) {
-            if (node.hasNeighbor()) {
-                boxes.add(new Box().withNeighbor(new Box()));
-            } else {
-                boxes.add(new Box());
+    private List<Component> allNodes() {
+        List<Component> components = new ArrayList<Component>();
+        for (Node node : definition.network().allNodes()) {
+            Box sourceBox = new Box(definition.positionOf(node));
+            components.add(sourceBox);
+        }
+        return components;
+    }
+
+    private List<Component> allLinks() {
+        List<Component> components = new ArrayList<Component>();
+        for (Node node : definition.network().allNodes()) {
+            Box sourceBox = new Box(definition.positionOf(node));
+            for (Link link : node.allNeighbors()) {
+                components.add(new Line(sourceBox, new Box(definition.positionOf(link.getDestination())), link));
             }
         }
-        return boxes;
+        return components;
     }
 
     public void paint() {
         viewPort.paint();
+    }
+
+    public void tick() {
+        definition.network().moveUnitOfData();
+        viewPort.redraw();
     }
 }
