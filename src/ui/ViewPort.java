@@ -48,13 +48,13 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
-    public synchronized void drawBox(Line line) {
+    public void drawBox(Line line) {
         MovingBox movingBox = line.getMovingBox();
         smallBoxes.add(movingBox);
     }
 
 
-    public synchronized void increment() {
+    public void increment() {
         for (int i = 0; i < smallBoxes.size(); ) {
             MovingBox smallBox = smallBoxes.get(i);
             if (smallBox.canMove()) {
