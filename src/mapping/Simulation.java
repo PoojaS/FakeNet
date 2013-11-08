@@ -2,10 +2,7 @@ package mapping;
 
 import model.Link;
 import model.Node;
-import ui.Box;
-import ui.Component;
-import ui.Line;
-import ui.ViewPort;
+import ui.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +31,7 @@ public class Simulation {
         for (Node node : definition.network().allNodes()) {
             Box sourceBox = new Box(definition.positionOf(node));
             for (Link link : node.allNeighbors()) {
-                components.add(new Line(sourceBox, new Box(definition.positionOf(link.getDestination())), link));
+                components.add(new Line(sourceBox, link.getDelay(), new Box(definition.positionOf(link.getDestination()))));
             }
         }
         return components;
@@ -46,6 +43,5 @@ public class Simulation {
 
     public void tick() {
         definition.network().moveUnitOfData();
-        viewPort.redraw();
     }
 }

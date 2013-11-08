@@ -10,14 +10,13 @@ import java.util.List;
 public class ViewPort extends JPanel {
 
     private List<Component> components;
-    private final JFrame frame;
     private List<Component> redrawn;
-    private Graphics graphics;
+    private final JFrame frame;
 
     public ViewPort(List<Component> plottedComponents, List<Component> redrawn) {
         this.redrawn = redrawn;
-        frame = buildFrame();
         components = plottedComponents;
+        frame = buildFrame();
     }
 
     private JFrame buildFrame() {
@@ -31,7 +30,6 @@ public class ViewPort extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        this.graphics = graphics;
         ArrayList<Component> allComponents = new ArrayList<Component>(components);
         allComponents.addAll(redrawn);
         for (Component component : allComponents) {
@@ -43,11 +41,4 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
-    public void redraw() {
-        if (graphics != null) {
-            for (Component component : redrawn) {
-                component.paint(graphics);
-            }
-        }
-    }
 }

@@ -1,7 +1,7 @@
 package ui;
 
 
-import model.Link;
+import ui.geometry.Point;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -11,15 +11,14 @@ import static java.util.Arrays.asList;
 
 public class Line implements Component {
 
+
     private Box source;
-    private Box destination;
-    private Link link;
+    private Integer delay;
     private List<Point> checkpoints;
 
-    public Line(Box sourceBox, Box destination, Link link) {
+    public Line(Box sourceBox, Integer delay, Box destination) {
         source = sourceBox;
-        this.destination = destination;
-        this.link = link;
+        this.delay = delay;
         this.checkpoints = prettyPlot(source.midPointOnRightHandSide(), destination.midPointOnLeftHandSide());
     }
 
@@ -37,5 +36,4 @@ public class Line implements Component {
             graphics.drawLine(from.getXpos(), from.getYpos(), to.getXpos(), to.getYpos());
         }
     }
-
 }

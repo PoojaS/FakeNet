@@ -1,7 +1,9 @@
 package ui;
 
 
-import java.awt.*;
+import ui.geometry.Point;
+
+import java.awt.Graphics;
 
 public class Box extends Plottable {
 
