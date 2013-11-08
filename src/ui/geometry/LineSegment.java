@@ -20,9 +20,9 @@ public class LineSegment {
 
     public int scalarDistance() {
         if (0 == axesOfChange()) {
-            return endPoint.getXpos() - startingPoint.getXpos();
+            return Math.abs(endPoint.getXpos() - startingPoint.getXpos());
         } else {
-            return endPoint.getYpos() - startingPoint.getYpos();
+            return Math.abs(endPoint.getYpos() - startingPoint.getYpos());
         }
     }
 
@@ -30,7 +30,14 @@ public class LineSegment {
         if (0 == axesOfChange()) {
             return new Point(startingPoint.getXpos() + length, startingPoint.getYpos());
         } else {
-            return new Point(startingPoint.getXpos(), startingPoint.getYpos() + length);
+            return new Point(startingPoint.getXpos(), startingPoint.getYpos() + length(length));
         }
+    }
+
+    private int length(int length) {
+        if (startingPoint.getYpos() < endPoint.getYpos())
+            return length;
+        else
+            return -length;
     }
 }

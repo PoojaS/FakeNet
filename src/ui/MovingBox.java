@@ -17,10 +17,6 @@ public class MovingBox extends Box {
 
     }
 
-    private void move() {
-
-    }
-
     @Override
     public void paint(Graphics graphics) {
         graphics.drawRect(point.getXpos() - (size / 2), point.getYpos() - (size / 2), size, size);

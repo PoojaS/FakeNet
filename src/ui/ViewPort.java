@@ -32,6 +32,7 @@ public class ViewPort extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
+        graphics.clearRect(0, 0, getWidth(), getHeight());
         for (Box box : components) {
             box.paint(graphics);
         }
@@ -47,13 +48,13 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
-    public void drawBox(Line line) {
+    public synchronized void drawBox(Line line) {
         MovingBox movingBox = line.getMovingBox();
         smallBoxes.add(movingBox);
     }
 
 
-    public void increment() {
+    public synchronized void increment() {
         for (int i = 0; i < smallBoxes.size(); ) {
             MovingBox smallBox = smallBoxes.get(i);
             if (smallBox.canMove()) {

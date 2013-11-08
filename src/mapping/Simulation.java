@@ -4,14 +4,13 @@ import model.Link;
 import model.Node;
 import ui.Box;
 import ui.Line;
-import ui.MovingBox;
 import ui.ViewPort;
 
 import java.util.*;
 
 public class Simulation implements Observer {
 
-    public static final int REFRESH_RATE = 100;
+    public static final int REFRESH_RATE = 50;
     private ViewPort viewPort;
     private Map<Link, Line> linkToLine;
     private NetworkDefinition definition;
@@ -70,8 +69,8 @@ public class Simulation implements Observer {
                     try {
                         Thread.sleep(REFRESH_RATE);
                         viewPort.increment();
-                        viewPort.removeAll();
-                        viewPort.updateUI();
+                        viewPort.invalidate();
+                        viewPort.repaint();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
