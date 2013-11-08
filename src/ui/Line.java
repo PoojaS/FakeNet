@@ -1,7 +1,7 @@
 package ui;
 
 
-import model.Link;
+import ui.geometry.Point;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -9,17 +9,15 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class Line implements Component {
+public class Line {
 
     private Box source;
-    private Box destination;
-    private Link link;
+    private int scale;
     private List<Point> checkpoints;
 
-    public Line(Box sourceBox, Box destination, Link link) {
+    public Line(Box sourceBox, Box destination, int scale) {
         source = sourceBox;
-        this.destination = destination;
-        this.link = link;
+        this.scale = scale;
         this.checkpoints = prettyPlot(source.midPointOnRightHandSide(), destination.midPointOnLeftHandSide());
     }
 
@@ -29,7 +27,6 @@ public class Line implements Component {
         return points;
     }
 
-    @Override
     public void paint(Graphics graphics) {
         for (int i = 0; i < checkpoints.size() - 1; i++) {
             Point from = checkpoints.get(i);
@@ -38,4 +35,9 @@ public class Line implements Component {
         }
     }
 
+    public MovingBox getMovingBox() {
+        ui.geometry.Line line = new ui.geometry.Line(checkpoints);
+        Point startingPoint = line.pointAt(0);
+        return new MovingBox(startingPoint, line, scale);
+    }
 }

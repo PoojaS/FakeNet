@@ -5,6 +5,8 @@ import model.Router;
 
 public class Simulator {
 
+    public static final Integer CONSTANT_DELAY = 2;
+
     private Simulation simulation;
     private TimeKeeper timeKeeper;
 
@@ -12,11 +14,10 @@ public class Simulator {
         NetworkDefinition definition = new NetworkDefinition();
         definition
                 .plot(new Node("A"), 100, 100)
-                .plot(new Router("X"), 200, 200)
-                .plot(new Node("B"), 300, 100)
-                .link("A", "X")
-                .link("X", "B")
-                .link("A", "B");
+                .plot(new Router("X"), 450, 500)
+                .plot(new Node("B"), 1000, 100)
+                .link("A", "X", CONSTANT_DELAY)
+                .link("X", "B", CONSTANT_DELAY);
         return definition;
     }
 

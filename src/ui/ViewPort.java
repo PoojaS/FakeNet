@@ -9,15 +9,16 @@ import java.util.List;
 
 public class ViewPort extends JPanel {
 
-    private List<Component> components;
+    private List<Box> components;
+    private List<Line> redrawn;
     private final JFrame frame;
-    private List<Component> redrawn;
-    private Graphics graphics;
+    private List<MovingBox> smallBoxes;
 
-    public ViewPort(List<Component> plottedComponents, List<Component> redrawn) {
+    public ViewPort(List<Box> plottedComponents, List<Line> redrawn) {
+        smallBoxes = new ArrayList<MovingBox>();
         this.redrawn = redrawn;
-        frame = buildFrame();
         components = plottedComponents;
+        frame = buildFrame();
     }
 
     private JFrame buildFrame() {
@@ -31,11 +32,15 @@ public class ViewPort extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        this.graphics = graphics;
-        ArrayList<Component> allComponents = new ArrayList<Component>(components);
-        allComponents.addAll(redrawn);
-        for (Component component : allComponents) {
-            component.paint(graphics);
+        graphics.clearRect(0, 0, getWidth(), getHeight());
+        for (Box box : components) {
+            box.paint(graphics);
+        }
+        for (Line line : redrawn) {
+            line.paint(graphics);
+        }
+        for (Box smallBox : smallBoxes) {
+            smallBox.paint(graphics);
         }
     }
 
@@ -43,10 +48,20 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
-    public void redraw() {
-        if (graphics != null) {
-            for (Component component : redrawn) {
-                component.paint(graphics);
+    public void drawBox(Line line) {
+        MovingBox movingBox = line.getMovingBox();
+        smallBoxes.add(movingBox);
+    }
+
+
+    public void increment() {
+        for (int i = 0; i < smallBoxes.size(); ) {
+            MovingBox smallBox = smallBoxes.get(i);
+            if (smallBox.canMove()) {
+                smallBox.increment();
+                i++;
+            } else {
+                smallBoxes.remove(i);
             }
         }
     }

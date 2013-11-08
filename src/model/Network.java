@@ -18,12 +18,12 @@ public class Network {
 
     public void moveUnitOfData() {
         for (final Node node : nodes) {
-            new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     node.moveUnitOfData();
                 }
-            }.run();
+            }).start();
         }
     }
 }

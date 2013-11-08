@@ -3,7 +3,7 @@ package mapping;
 import model.Link;
 import model.Network;
 import model.Node;
-import ui.Point;
+import ui.geometry.Point;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +25,8 @@ public class NetworkDefinition {
         return this;
     }
 
-    public NetworkDefinition link(String source, String destination) {
-        idToNode.get(source).addLink(new Link(idToNode.get(destination)));
+    public NetworkDefinition link(String source, String destination, int delay) {
+        idToNode.get(source).addLink(new Link(delay, idToNode.get(destination)));
         return this;
     }
 

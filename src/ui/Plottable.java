@@ -1,7 +1,9 @@
 package ui;
 
 
-public abstract class Plottable implements Component {
+import ui.geometry.Point;
+
+public abstract class Plottable {
 
     protected Point point;
 
