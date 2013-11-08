@@ -3,7 +3,7 @@ package ui;
 
 import ui.geometry.Point;
 
-public abstract class Plottable implements Component {
+public abstract class Plottable {
 
     protected Point point;
 

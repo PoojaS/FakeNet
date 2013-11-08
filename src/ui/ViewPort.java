@@ -9,11 +9,13 @@ import java.util.List;
 
 public class ViewPort extends JPanel {
 
-    private List<Component> components;
-    private List<Component> redrawn;
+    private List<Box> components;
+    private List<Line> redrawn;
     private final JFrame frame;
+    private List<MovingBox> smallBoxes;
 
-    public ViewPort(List<Component> plottedComponents, List<Component> redrawn) {
+    public ViewPort(List<Box> plottedComponents, List<Line> redrawn) {
+        smallBoxes = new ArrayList<MovingBox>();
         this.redrawn = redrawn;
         components = plottedComponents;
         frame = buildFrame();
@@ -30,10 +32,14 @@ public class ViewPort extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        ArrayList<Component> allComponents = new ArrayList<Component>(components);
-        allComponents.addAll(redrawn);
-        for (Component component : allComponents) {
-            component.paint(graphics);
+        for (Box box : components) {
+            box.paint(graphics);
+        }
+        for (Line line : redrawn) {
+            line.paint(graphics);
+        }
+        for (Box smallBox : smallBoxes) {
+            smallBox.paint(graphics);
         }
     }
 
@@ -41,4 +47,21 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
+    public void drawBox(Line line) {
+        MovingBox movingBox = line.getMovingBox();
+        smallBoxes.add(movingBox);
+    }
+
+
+    public void increment() {
+        for (int i = 0; i < smallBoxes.size(); ) {
+            MovingBox smallBox = smallBoxes.get(i);
+            if (smallBox.canMove()) {
+                smallBox.increment();
+                i++;
+            } else {
+                smallBoxes.remove(i);
+            }
+        }
+    }
 }

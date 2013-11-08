@@ -33,4 +33,8 @@ public class Link {
     public Integer getDelay() {
         return wireDelayInSeconds;
     }
+
+    public int getWireDelay() {
+        return wireDelayInSeconds;
+    }
 }

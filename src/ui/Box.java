@@ -7,22 +7,26 @@ import java.awt.Graphics;
 
 public class Box extends Plottable {
 
-    private static int SIZE = 50;
+    protected int size = 50;
 
     public Box(Point point) {
         super(point);
     }
 
+    public Box(Point point, int size) {
+        super(point);
+        this.size = size;
+    }
+
     public Point midPointOnRightHandSide() {
-        return new Point(point.getXpos() + SIZE, point.getYpos() + (SIZE / 2));
+        return new Point(point.getXpos() + size, point.getYpos() + (size / 2));
     }
 
     public Point midPointOnLeftHandSide() {
-        return new Point(point.getXpos(), point.getYpos() + (SIZE / 2));
+        return new Point(point.getXpos(), point.getYpos() + (size / 2));
     }
 
-    @Override
     public void paint(Graphics graphics) {
-        graphics.drawRect(point.getXpos(), point.getYpos(), SIZE, SIZE);
+        graphics.drawRect(point.getXpos(), point.getYpos(), size, size);
     }
 }

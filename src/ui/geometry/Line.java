@@ -6,31 +6,25 @@ import java.util.List;
 public class Line {
 
     private List<LineSegment> segments;
-    private LineSegment segmentUnderConstruction;
 
     public Line(List<Point> checkPoints) {
-        segments = new ArrayList<LineSegment>();
-        segmentUnderConstruction = new LineSegment();
-        for (Point checkPoint : checkPoints) {
-            addPoint(checkPoint);
-        }
+        segments = construct(checkPoints);
     }
 
-    private void addPoint(Point point) {
-        segmentUnderConstruction.add(point);
-        if (segmentUnderConstruction.isComplete()) {
-            reinitialize();
+    private List<LineSegment> construct(List<Point> checkPoint) {
+        List<LineSegment> result = new ArrayList<LineSegment>();
+        int i = 0;
+        while (i < checkPoint.size() - 1) {
+            Point point = checkPoint.get(i);
+            result.add(new LineSegment(point, checkPoint.get(i + 1)));
+            i++;
         }
-    }
-
-    private void reinitialize() {
-        segments.add(segmentUnderConstruction);
-        segmentUnderConstruction = new LineSegment();
+        return result;
     }
 
     public Point pointAt(int length) {
         for (LineSegment segment : segments) {
-            if (segment.scalarDistance() <= length) {
+            if (length <= segment.scalarDistance()) {
                 return segment.pointAt(length);
             } else {
                 length -= segment.scalarDistance();

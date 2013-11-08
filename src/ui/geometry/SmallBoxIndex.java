@@ -4,17 +4,23 @@ package ui.geometry;
 public class SmallBoxIndex {
 
     private int length;
-    private int delay;
-    private int curPos;
+    private int scale;
+    private int current = 1;
 
-    public SmallBoxIndex(int length, int delay, int curPos) {
-        this.length = length;
-        this.delay = delay;
-        this.curPos = curPos;
+    public SmallBoxIndex(int length, int scale, int size) {
+        this.length = length - (size * 2); // Take away size pixels on each side
+        this.scale = scale;
     }
 
     public int value() {
-        return length + ((length / delay) * curPos);
+        return (int) ((double) (length / scale) * current);
     }
 
+    public void increment() {
+        current++;
+    }
+
+    public boolean isMax() {
+        return (int) ((double) (length / scale) * current) >= length;
+    }
 }

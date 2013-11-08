@@ -1,8 +1,9 @@
 package model;
 
 import java.util.List;
+import java.util.Observable;
 
-public class Node {
+public class Node extends Observable {
 
     private Neighbors neighbors;
     private String id;
@@ -33,7 +34,12 @@ public class Node {
 
     public void moveUnitOfData() {
         if (neighbors.hadNeighbor()) {
-            neighbors.neighbor().send(buffer.read(neighbors.neighbor().getBandwidth()));
+            byte[] read = buffer.read(neighbors.neighbor().getBandwidth());
+            if (null != read && read.length > 0) {
+                neighbors.neighbor().send(read);
+                setChanged();
+                notifyObservers(null);
+            }
         }
     }
 }

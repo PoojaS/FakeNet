@@ -5,8 +5,9 @@ public class LineSegment {
     private Point startingPoint;
     private Point endPoint;
 
-    public LineSegment() {
-        startingPoint = endPoint = null;
+    public LineSegment(Point startingPoint, Point endPoint) {
+        this.startingPoint = startingPoint;
+        this.endPoint = endPoint;
     }
 
     public int axesOfChange() {
@@ -22,18 +23,6 @@ public class LineSegment {
             return endPoint.getXpos() - startingPoint.getXpos();
         } else {
             return endPoint.getYpos() - startingPoint.getYpos();
-        }
-    }
-
-    public boolean isComplete() {
-        return null != endPoint;
-    }
-
-    public void add(Point point) {
-        if (null == startingPoint) {
-            startingPoint = point;
-        } else {
-            endPoint = point;
         }
     }
 
