@@ -26,7 +26,7 @@ public class NetworkDefinition {
     }
 
     public NetworkDefinition link(String source, String destination, int delay) {
-        idToNode.get(source).addLink(new Link(delay, idToNode.get(destination)));
+        idToNode.get(source).addLink(new Link(delay, idToNode.get(source), idToNode.get(destination)));
         return this;
     }
 

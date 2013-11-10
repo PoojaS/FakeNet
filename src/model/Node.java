@@ -39,7 +39,7 @@ public class Node extends Observable {
             if (null != read && read.length > 0) {
                 neighbor.send(read);
                 setChanged();
-                notifyObservers(neighbor);
+                notifyObservers(new InitiationOfTransfer(Link.FORWARD, neighbor));
             }
         }
     }

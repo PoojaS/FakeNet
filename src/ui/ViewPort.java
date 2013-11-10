@@ -48,8 +48,8 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
-    public synchronized void drawBox(Line line) {
-        MovingBox movingBox = line.getMovingBox();
+    public synchronized void drawBox(Line line, Integer directionOfTransfer) {
+        MovingBox movingBox = line.getMovingBox(directionOfTransfer);
         smallBoxes.add(movingBox);
     }
 

@@ -35,9 +35,8 @@ public class Line {
         }
     }
 
-    public MovingBox getMovingBox() {
+    public MovingBox getMovingBox(Integer directionOfTransfer) {
         ui.geometry.Line line = new ui.geometry.Line(checkpoints);
-        Point startingPoint = line.pointAt(0);
-        return new MovingBox(startingPoint, line, scale);
+        return new MovingBox(line, scale, directionOfTransfer);
     }
 }

@@ -13,8 +13,7 @@ public class Box extends Plottable {
         super(point);
     }
 
-    public Box(Point point, int size) {
-        super(point);
+    public Box(int size) {
         this.size = size;
     }
 
