@@ -55,10 +55,8 @@ public class Simulation implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Node node = (Node) o;
-        for (Link link : node.allNeighbors()) {
-            viewPort.drawBox(linkToLine.get(link));
-        }
+        Link link = (Link) arg;
+        viewPort.drawBox(linkToLine.get(link));
     }
 
     private void moveBox() {
