@@ -34,11 +34,12 @@ public class Node extends Observable {
 
     public void moveUnitOfData() {
         if (neighbors.hadNeighbor()) {
-            byte[] read = buffer.read(neighbors.neighbor().getBandwidth());
+            Link neighbor = neighbors.neighbor();
+            byte[] read = buffer.read(neighbor.getBandwidth());
             if (null != read && read.length > 0) {
-                neighbors.neighbor().send(read);
+                neighbor.send(read);
                 setChanged();
-                notifyObservers(null);
+                notifyObservers(new InitiationOfTransfer(Link.FORWARD, neighbor));
             }
         }
     }

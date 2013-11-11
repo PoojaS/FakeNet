@@ -7,6 +7,10 @@ public abstract class Plottable {
 
     protected Point point;
 
+    protected Plottable() {
+        point = null;
+    }
+
     protected Plottable(Point point) {
         this.point = point;
     }

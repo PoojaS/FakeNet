@@ -10,11 +10,11 @@ public class MovingBox extends Box {
     private SmallBoxIndex smallBoxIndex;
     private ui.geometry.Line line;
 
-    public MovingBox(Point point, ui.geometry.Line line, int scale) {
-        super(point, 10);
+    public MovingBox(ui.geometry.Line line, int scale, Integer directionOfTransfer) {
+        super(10);
         this.line = line;
-        smallBoxIndex = new SmallBoxIndex(line.length(), scale, 10);
-
+        smallBoxIndex = new SmallBoxIndex(line.length(), scale, 10, directionOfTransfer);
+        point = getPosition();
     }
 
     @Override

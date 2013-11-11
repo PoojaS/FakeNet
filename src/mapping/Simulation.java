@@ -1,5 +1,6 @@
 package mapping;
 
+import model.InitiationOfTransfer;
 import model.Link;
 import model.Node;
 import ui.Box;
@@ -55,10 +56,8 @@ public class Simulation implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Node node = (Node) o;
-        for (Link link : node.allNeighbors()) {
-            viewPort.drawBox(linkToLine.get(link));
-        }
+        Link link = ((InitiationOfTransfer) arg).getLink();
+        viewPort.drawBox(linkToLine.get(link), ((InitiationOfTransfer) arg).getDirectionOfTransfer());
     }
 
     private void moveBox() {
