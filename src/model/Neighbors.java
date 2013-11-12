@@ -13,7 +13,7 @@ public class Neighbors {
 
     public Link neighbor(String destination) {
         for (Link neighbor : neighbors) {
-            if (neighbor.is(destination)) {
+            if (neighbor.isNeighbor(destination)) {
                 return neighbor;
             }
         }

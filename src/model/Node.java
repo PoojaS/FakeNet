@@ -1,6 +1,7 @@
 package model;
 
 import protocol.Packet;
+import protocol.Sessions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +11,27 @@ public class Node extends Observable {
 
     private String id;
     private Buffer buffer;
-    private List<String> destinations;
-    private Neighbors neighbors;
+    private Sessions sessions;
     private Link defaultGateway;
+    protected Neighbors neighbors;
 
     public Node(String id) {
         this.id = id;
         buffer = new Buffer();
-        destinations = new ArrayList<String>();
+        sessions = new Sessions();
         neighbors = new Neighbors();
-    }
-
-    public void receive(Packet packet) {
-        System.out.println("Received " + packet.size() + " bytes of data");
-        buffer.append(packet);
     }
 
     public String getId() {
         return id;
+    }
+
+    public void receive(Packet packet, Link wire) {
+        sessions.accept(packet.getSource()).receive(packet);
+    }
+
+    public void addFlow(String destination) {
+        sessions.create(destination);
     }
 
     public void addLink(Link link) {
@@ -35,33 +39,33 @@ public class Node extends Observable {
     }
 
     public List<Link> allNeighbors() {
-        return neighbors.all();
+        List<Link> result = new ArrayList<Link>(neighbors.all());
+        if (null != defaultGateway) {
+            result.add(defaultGateway);
+        }
+        return result;
     }
 
     public void setGateway(Link defaultGateway) {
         this.defaultGateway = defaultGateway;
-        this.addLink(defaultGateway);
     }
 
     public void moveUnitOfData() {
-        for (String destination : destinations) {
-            modeDataToDestination(destination);
+        for (String destination : sessions.allBuddies()) {
+            Link neighbor = neighbors.neighbor(destination);
+            Link actualDestination = (null == neighbor) ? defaultGateway : neighbor;
+            Packet packet = buffer.read(actualDestination.getBandwidth());
+            packet.setDestination(destination);
+            packet.setSource(id);
+            move(packet, actualDestination);
         }
     }
 
-    protected void modeDataToDestination(String destination) {
-        Link neighbor = neighbors.neighbor(destination);
-        Link actualDestination = (null == neighbor) ? defaultGateway : neighbor;
-        Packet packet = buffer.read(actualDestination.getBandwidth());
-        packet.setDestination(destination);
+    protected void move(Packet packet, Link actualDestination) {
         if (packet.size() > 0) {
-            actualDestination.send(packet);
+            actualDestination.send(packet, id);
             setChanged();
-            notifyObservers(new InitiationOfTransfer(Link.FORWARD, actualDestination));
+            notifyObservers(new InitiationOfTransfer(this, actualDestination));
         }
-    }
-
-    public void addFlow(String destination) {
-        destinations.add(destination);
     }
 }

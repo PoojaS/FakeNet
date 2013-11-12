@@ -1,5 +1,8 @@
 package ui.geometry;
 
+import model.Direction;
+import model.Link;
+
 public class Point {
 
     private int xpos;
@@ -24,5 +27,13 @@ public class Point {
 
     public Point midwayOnTheSameLineAsOtherPoint(Point otherPoint) {
         return new Point(xpos + ((otherPoint.getXpos() - xpos) / 2), otherPoint.getYpos());
+    }
+
+    public Direction compareTo(Point destination) {
+        if (getXpos() <= destination.getXpos()) {
+            return Direction.FORWARD;
+        } else {
+            return Direction.REVERSE;
+        }
     }
 }

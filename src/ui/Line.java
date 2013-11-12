@@ -1,6 +1,7 @@
 package ui;
 
 
+import model.Direction;
 import ui.geometry.Point;
 
 import java.awt.Graphics;
@@ -18,13 +19,7 @@ public class Line {
     public Line(Box sourceBox, Box destination, int scale) {
         source = sourceBox;
         this.scale = scale;
-        this.checkpoints = prettyPlot(source.midPointOnRightHandSide(), destination.midPointOnLeftHandSide());
-    }
-
-    private List<Point> prettyPlot(Point source, Point destination) {
-        List<Point> points = new ArrayList<Point>();
-        points.addAll(asList(source, source.midwayOnTheSameLineAsThisPoint(destination), source.midwayOnTheSameLineAsOtherPoint(destination), destination));
-        return points;
+        this.checkpoints = prettyPlot(lesser(source, destination).midPointOnRightHandSide(), greater(source, destination).midPointOnLeftHandSide());
     }
 
     public void paint(Graphics graphics) {
@@ -35,8 +30,22 @@ public class Line {
         }
     }
 
-    public MovingBox getMovingBox(Integer directionOfTransfer) {
+    public MovingBox getMovingBox(Direction directionOfTransfer) {
         ui.geometry.Line line = new ui.geometry.Line(checkpoints);
         return new MovingBox(line, scale, directionOfTransfer);
+    }
+
+    private Box lesser(Box source, Box destination) {
+        return (source.getPoint().compareTo(destination.getPoint()) == Direction.FORWARD) ? source : destination;
+    }
+
+    private Box greater(Box source, Box destination) {
+        return (source.getPoint().compareTo(destination.getPoint()) == Direction.FORWARD) ? destination : source;
+    }
+
+    private List<Point> prettyPlot(Point source, Point destination) {
+        List<Point> points = new ArrayList<Point>();
+        points.addAll(asList(source, source.midwayOnTheSameLineAsThisPoint(destination), source.midwayOnTheSameLineAsOtherPoint(destination), destination));
+        return points;
     }
 }

@@ -3,6 +3,7 @@ package mapping;
 import model.Link;
 import model.Network;
 import model.Node;
+import model.Router;
 import ui.geometry.Point;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class NetworkDefinition {
 
     public NetworkDefinition defaultGateWay(String node, String router, Integer delay) {
         idToNode.get(node).setGateway(new Link(delay, idToNode.get(node), idToNode.get(router)));
+        Router routingNode = (Router) idToNode.get(router);
+        routingNode.addRoute(new Link(delay, idToNode.get(router), idToNode.get(node)));
         return this;
     }
 

@@ -5,11 +5,19 @@ public class Packet {
     private byte[] data;
     private byte[] headers;
     private String destination;
+    private String source;
 
     public Packet(byte[] data, byte[] headers) {
         this.data = data;
         this.headers = headers;
-        this.destination = destination;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getDestination() {

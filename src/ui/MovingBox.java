@@ -1,5 +1,6 @@
 package ui;
 
+import model.Direction;
 import ui.geometry.Point;
 import ui.geometry.SmallBoxIndex;
 
@@ -10,7 +11,7 @@ public class MovingBox extends Box {
     private SmallBoxIndex smallBoxIndex;
     private ui.geometry.Line line;
 
-    public MovingBox(ui.geometry.Line line, int scale, Integer directionOfTransfer) {
+    public MovingBox(ui.geometry.Line line, int scale, Direction directionOfTransfer) {
         super(10);
         this.line = line;
         smallBoxIndex = new SmallBoxIndex(line.length(), scale, 10, directionOfTransfer);
