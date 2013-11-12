@@ -1,5 +1,7 @@
 package model;
 
+import protocol.Packet;
+
 public class Buffer {
 
     private byte[] data = new byte[10000];
@@ -12,7 +14,7 @@ public class Buffer {
         writeHead.increment();
     }
 
-    public byte[] read(int bytes) {
+    public Packet read(int bytes) {
         if (readHead.readOperationHasCommenced()) {
             byte[] result = new byte[bytes];
             int remainingDataToReadInBuffer = new RemainingBuffer(readHead.getIndex(), writeHead.getIndex(), data.length).bytesToRead();
@@ -20,16 +22,16 @@ public class Buffer {
             for (int i = 0; i < totalDataThatCouldBeRead; i++, readHead.increment()) {
                 result[i] = data[readHead.getIndex()];
             }
-            return result;
+            return new Packet(result, new byte[0]);
         } else {
             throw new RuntimeException("No data written yet");
         }
     }
 
-    public void append(byte[] bytes) {
+    public void append(Packet packet) {
         readHead.canRead();
-        if (!possibleDataOverwrite(bytes.length)) {
-            for (byte aByte : bytes) {
+        if (!possibleDataOverwrite(packet.size())) {
+            for (byte aByte : packet.data()) {
                 data[writeHead.getIndex()] = aByte;
                 writeHead.increment();
             }

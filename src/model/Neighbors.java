@@ -11,12 +11,13 @@ public class Neighbors {
         neighbors.add(neighbor);
     }
 
-    public boolean hadNeighbor() {
-        return !neighbors.isEmpty();
-    }
-
-    public Link neighbor() {
-        return neighbors.get(0);
+    public Link neighbor(String destination) {
+        for (Link neighbor : neighbors) {
+            if (neighbor.is(destination)) {
+                return neighbor;
+            }
+        }
+        return null;
     }
 
     public List<Link> all() {

@@ -17,7 +17,8 @@ public class Simulator {
                 .plot(new Router("X"), 450, 500)
                 .plot(new Node("B"), 1000, 100)
                 .link("A", "X", CONSTANT_DELAY)
-                .link("X", "B", CONSTANT_DELAY);
+                .link("X", "B", CONSTANT_DELAY)
+                .moveData("A", "X");
         return definition;
     }
 

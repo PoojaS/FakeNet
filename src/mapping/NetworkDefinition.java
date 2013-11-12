@@ -30,6 +30,11 @@ public class NetworkDefinition {
         return this;
     }
 
+    public NetworkDefinition moveData(String source, String destination){
+        idToNode.get(source).addFlow(destination);
+        return this;
+    }
+
     public Network network() {
         return new Network(new ArrayList<Node>(plotOfNodes.keySet()));
     }

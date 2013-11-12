@@ -1,5 +1,7 @@
 package model;
 
+import protocol.Packet;
+
 import static java.lang.Thread.sleep;
 
 public class Link {
@@ -18,10 +20,14 @@ public class Link {
         this.destination = destination;
     }
 
-    public void send(byte[] bytes) {
+    public boolean is(String destination) {
+        return this.destination.getId().equals(destination);
+    }
+
+    public void send(Packet packet) {
         try {
             sleep(wireDelayInSeconds * 1000);
-            destination.receive(bytes);
+            destination.receive(packet);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
