@@ -25,12 +25,17 @@ public class NetworkDefinition {
         return this;
     }
 
+    public NetworkDefinition defaultGateWay(String node, String router, Integer delay) {
+        idToNode.get(node).setGateway(new Link(delay, idToNode.get(node), idToNode.get(router)));
+        return this;
+    }
+
     public NetworkDefinition link(String source, String destination, int delay) {
         idToNode.get(source).addLink(new Link(delay, idToNode.get(source), idToNode.get(destination)));
         return this;
     }
 
-    public NetworkDefinition moveData(String source, String destination){
+    public NetworkDefinition moveData(String source, String destination) {
         idToNode.get(source).addFlow(destination);
         return this;
     }

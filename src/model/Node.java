@@ -8,10 +8,11 @@ import java.util.Observable;
 
 public class Node extends Observable {
 
-    private Neighbors neighbors;
     private String id;
     private Buffer buffer;
     private List<String> destinations;
+    private Neighbors neighbors;
+    private Link defaultGateway;
 
     public Node(String id) {
         this.id = id;
@@ -37,16 +38,26 @@ public class Node extends Observable {
         return neighbors.all();
     }
 
+    public void setGateway(Link defaultGateway) {
+        this.defaultGateway = defaultGateway;
+        this.addLink(defaultGateway);
+    }
+
     public void moveUnitOfData() {
         for (String destination : destinations) {
-            Link neighbor = neighbors.neighbor(destination);
-            Packet packet = buffer.read(neighbor.getBandwidth());
-            packet.setDestination(destination);
-            if (packet.size() > 0) {
-                neighbor.send(packet);
-                setChanged();
-                notifyObservers(new InitiationOfTransfer(Link.FORWARD, neighbor));
-            }
+            modeDataToDestination(destination);
+        }
+    }
+
+    protected void modeDataToDestination(String destination) {
+        Link neighbor = neighbors.neighbor(destination);
+        Link actualDestination = (null == neighbor) ? defaultGateway : neighbor;
+        Packet packet = buffer.read(actualDestination.getBandwidth());
+        packet.setDestination(destination);
+        if (packet.size() > 0) {
+            actualDestination.send(packet);
+            setChanged();
+            notifyObservers(new InitiationOfTransfer(Link.FORWARD, actualDestination));
         }
     }
 
