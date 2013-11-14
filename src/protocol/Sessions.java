@@ -14,13 +14,23 @@ public class Sessions {
     }
 
     public synchronized void create(String buddy) {
-        allSessions.put(buddy, new Session());
+        allSessions.put(buddy, new Session(buddy));
+    }
+
+    public Packets read(int bytes) {
+        int bytesToReadNow = bytes;
+        Packets result = new Packets();
+        for (Session session : allSessions.values()) {
+            result.addAll(session.read(bytesToReadNow));
+            bytesToReadNow = bytes - result.size();
+        }
+        return result;
     }
 
     public synchronized Session accept(String buddy) {
         Session existingSession = allSessions.get(buddy);
         if (null == existingSession) {
-            Session session = new Session();
+            Session session = new Session(buddy);
             allSessions.put(buddy, session);
             existingSession = session;
         }

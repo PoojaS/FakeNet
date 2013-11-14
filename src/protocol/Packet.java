@@ -7,6 +7,11 @@ public class Packet {
     private String destination;
     private String source;
 
+    public Packet() {
+        data = new byte[0];
+        headers = new byte[0];
+    }
+
     public Packet(byte[] data, byte[] headers) {
         this.data = data;
         this.headers = headers;
@@ -29,7 +34,11 @@ public class Packet {
     }
 
     public int size() {
-        return data.length + headers.length;
+        return data.length + defaultHeaderSize();
+    }
+
+    public int defaultHeaderSize() {
+        return 2;
     }
 
     public byte[] data() {

@@ -1,6 +1,7 @@
 package model;
 
 import protocol.Packet;
+import protocol.Packets;
 import protocol.Sessions;
 
 import java.util.ArrayList;
@@ -10,14 +11,12 @@ import java.util.Observable;
 public class Node extends Observable {
 
     private String id;
-    private Buffer buffer;
     private Sessions sessions;
     private Link defaultGateway;
     protected Neighbors neighbors;
 
     public Node(String id) {
         this.id = id;
-        buffer = new Buffer();
         sessions = new Sessions();
         neighbors = new Neighbors();
     }
@@ -54,18 +53,21 @@ public class Node extends Observable {
         for (String destination : sessions.allBuddies()) {
             Link neighbor = neighbors.neighbor(destination);
             Link actualDestination = (null == neighbor) ? defaultGateway : neighbor;
-            Packet packet = buffer.read(actualDestination.getBandwidth());
-            packet.setDestination(destination);
+            Packets packet = sessions.read(actualDestination.getBandwidth());
             packet.setSource(id);
             move(packet, actualDestination);
         }
     }
 
-    protected void move(Packet packet, Link actualDestination) {
-        if (packet.size() > 0) {
-            actualDestination.send(packet, id);
-            setChanged();
-            notifyObservers(new InitiationOfTransfer(this, actualDestination));
+    protected void move(Packets packets, Link actualDestination) {
+        for (Packet packet : packets.all()) {
+            move(packet, actualDestination);
         }
+    }
+
+    protected void move(Packet packet, Link actualDestination) {
+        actualDestination.send(packet, id);
+        setChanged();
+        notifyObservers(new InitiationOfTransfer(this, actualDestination));
     }
 }
