@@ -27,16 +27,6 @@ public class Sessions {
         return result;
     }
 
-    public synchronized Session accept(String buddy) {
-        Session existingSession = allSessions.get(buddy);
-        if (null == existingSession) {
-            Session session = new Session(buddy);
-            allSessions.put(buddy, session);
-            existingSession = session;
-        }
-        return existingSession;
-    }
-
     public List<String> allBuddies() {
         return new ArrayList<String>(allSessions.keySet());
     }

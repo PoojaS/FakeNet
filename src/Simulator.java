@@ -18,7 +18,8 @@ public class Simulator {
                 .plot(new Node("B"), 1000, 100)
                 .defaultGateWay("A", "X", CONSTANT_DELAY)
                 .defaultGateWay("B", "X", CONSTANT_DELAY)
-                .moveData("A", "B");
+                .moveData("A", "B")
+                .moveData("B", "A");
         return definition;
     }
 

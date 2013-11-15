@@ -26,7 +26,6 @@ public class Node extends Observable {
     }
 
     public void receive(Packet packet, Link wire) {
-        sessions.accept(packet.getSource()).receive(packet);
     }
 
     public void addFlow(String destination) {
