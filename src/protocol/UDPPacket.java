@@ -1,9 +1,11 @@
 package protocol;
 
+import model.BinaryRepresentation;
+
 public class UDPPacket {
 
     public static final int HEADER_SIZE = 2;
-    public static final int MAXIMUM_PACKET_SIZE = 10;
+    public static final int MAXIMUM_PACKET_SIZE = 2 ^ 16;
 
     private int sourcePort;
     private int destinationPort;
@@ -14,11 +16,16 @@ public class UDPPacket {
     public UDPPacket(byte[] data) {
         this.data = data;
         this.udpLength = data.length;
-        this.udpChecksum = computChecksum(data);
     }
 
-    private byte[] computChecksum(byte[] data) {
-        return new byte[2];
+    public void computeChecksum(byte[] sourceAddress, byte[] destinationAddress) {
+        BinaryRepresentation binaryRepresentation = new BinaryRepresentation();
+        binaryRepresentation.add(sourceAddress);
+        binaryRepresentation.add(destinationAddress);
+        binaryRepresentation.add(0x0011); // Protocol type of udp at the IP layer
+        binaryRepresentation.add(udpLength);
+        binaryRepresentation.add(data);
+        udpChecksum = binaryRepresentation.value();
     }
 
     public int size() {

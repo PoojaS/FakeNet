@@ -50,4 +50,10 @@ public class Packets {
             packet.setDestination(destination);
         }
     }
+
+    public void computeChecksum(){
+        for (Packet packet : packets) {
+            packet.computeChecksum();
+        }
+    }
 }

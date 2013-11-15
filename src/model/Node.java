@@ -52,9 +52,10 @@ public class Node extends Observable {
         for (String destination : sessions.allBuddies()) {
             Link neighbor = neighbors.neighbor(destination);
             Link actualDestination = (null == neighbor) ? defaultGateway : neighbor;
-            Packets packet = sessions.read(actualDestination.getBandwidth());
-            packet.setSource(id);
-            move(packet, actualDestination);
+            Packets packets = sessions.read(actualDestination.getBandwidth());
+            packets.setSource(id);
+            packets.computeChecksum();
+            move(packets, actualDestination);
         }
     }
 

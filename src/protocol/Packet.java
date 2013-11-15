@@ -29,4 +29,8 @@ public class Packet {
     public int size() {
         return packet.size();
     }
+
+    public void computeChecksum() {
+        packet.computeChecksum(source.getBytes(), destination.getBytes());
+    }
 }
