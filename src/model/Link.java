@@ -6,7 +6,7 @@ import static java.lang.Thread.sleep;
 
 public class Link {
 
-    private Integer bandwidth = 2;
+    private Integer bandwidth = 100;
     private Integer wireDelayInSeconds;
     private Node source;
     private Node destination;

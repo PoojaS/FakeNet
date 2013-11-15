@@ -2,6 +2,9 @@ package protocol;
 
 public class UDPPacket {
 
+    public static final int HEADER_SIZE = 2;
+    public static final int MAXIMUM_PACKET_SIZE = 10;
+
     private int sourcePort;
     private int destinationPort;
     private int udpLength;
@@ -19,6 +22,6 @@ public class UDPPacket {
     }
 
     public int size() {
-        return data.length;
+        return HEADER_SIZE + data.length;
     }
 }

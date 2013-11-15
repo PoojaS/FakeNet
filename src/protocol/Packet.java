@@ -2,8 +2,6 @@ package protocol;
 
 public class Packet {
 
-    public static final int HEADER_SIZE = 2;
-
     private UDPPacket packet;
     private String destination;
     private String source;
@@ -29,6 +27,6 @@ public class Packet {
     }
 
     public int size() {
-        return HEADER_SIZE + packet.size();
+        return packet.size();
     }
 }
