@@ -26,6 +26,11 @@ public class NetworkDefinition {
         return this;
     }
 
+    public NetworkDefinition generateUnequalSizePackets(String node) {
+        idToNode.get(node).setPacketsOfEqualSize(false);
+        return this;
+    }
+
     public NetworkDefinition defaultGateWay(String node, String router, Integer delay) {
         idToNode.get(node).setGateway(new Link(delay, idToNode.get(node), idToNode.get(router)));
         Router routingNode = (Router) idToNode.get(router);

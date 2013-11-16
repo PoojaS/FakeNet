@@ -7,6 +7,7 @@ import java.util.Queue;
 
 public class Router extends Node {
 
+    public static final int ROUTER_DELAY = 2000;
     private Queue<Packet> packets;
     private Neighbors routes;
 
@@ -20,6 +21,12 @@ public class Router extends Node {
     public void moveUnitOfData() {
         if (!packets.isEmpty()) {
             Packet packet = packets.remove();
+            try {
+                Thread.sleep(ROUTER_DELAY + packet.size());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("The size of " + getId() + " is " + packets.size());
             move(packet, routes.neighbor(packet.getDestination()));
         }
     }
