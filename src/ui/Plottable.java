@@ -14,4 +14,8 @@ public abstract class Plottable {
     protected Plottable(Point point) {
         this.point = point;
     }
+
+    public Point getPoint() {
+        return point;
+    }
 }

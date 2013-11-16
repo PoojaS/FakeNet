@@ -1,6 +1,8 @@
 package ui;
 
 
+import ui.geometry.Point;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
@@ -48,8 +50,8 @@ public class ViewPort extends JPanel {
         frame.setVisible(true);
     }
 
-    public synchronized void drawBox(Line line, Integer directionOfTransfer) {
-        MovingBox movingBox = line.getMovingBox(directionOfTransfer);
+    public synchronized void drawBox(Line line, Point source, Point destination) {
+        MovingBox movingBox = line.getMovingBox(source.compareTo(destination));
         smallBoxes.add(movingBox);
     }
 

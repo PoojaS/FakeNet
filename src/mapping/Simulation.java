@@ -56,8 +56,9 @@ public class Simulation implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Link link = ((InitiationOfTransfer) arg).getLink();
-        viewPort.drawBox(linkToLine.get(link), ((InitiationOfTransfer) arg).getDirectionOfTransfer());
+        InitiationOfTransfer transfer = (InitiationOfTransfer) arg;
+        Link link = transfer.getLink();
+        viewPort.drawBox(linkToLine.get(link), definition.positionOf(transfer.getSource()), definition.positionOf(transfer.getDestination()));
     }
 
     private void moveBox() {

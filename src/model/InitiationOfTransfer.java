@@ -2,19 +2,23 @@ package model;
 
 public class InitiationOfTransfer {
 
-    private Integer directionOfTransfer;
-    private Link link;
+    private Node source;
+    private Link destination;
 
-    public InitiationOfTransfer(Integer directionOfTransfer, Link link) {
-        this.directionOfTransfer = directionOfTransfer;
-        this.link = link;
+    public InitiationOfTransfer(Node source, Link destination) {
+        this.source = source;
+        this.destination = destination;
     }
 
-    public Integer getDirectionOfTransfer() {
-        return directionOfTransfer;
+    public Node getSource() {
+        return source;
+    }
+
+    public Node getDestination() {
+        return destination.getDestination();
     }
 
     public Link getLink() {
-        return link;
+        return destination;
     }
 }
