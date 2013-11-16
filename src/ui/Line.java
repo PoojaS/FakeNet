@@ -19,7 +19,9 @@ public class Line {
     public Line(Box sourceBox, Box destination, int scale) {
         source = sourceBox;
         this.scale = scale;
-        this.checkpoints = prettyPlot(lesser(source, destination).midPointOnRightHandSide(), greater(source, destination).midPointOnLeftHandSide());
+        Box lesser = lesser(source, destination);
+        Box greater = greater(source, destination);
+        this.checkpoints = prettyPlot(lesser.facing(greater), greater.facing(lesser));
     }
 
     public void paint(Graphics graphics) {
