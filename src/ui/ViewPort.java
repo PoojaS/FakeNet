@@ -9,6 +9,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The canvas on which the view is drawn
+ */
 public class ViewPort extends JPanel {
 
     private List<Box> components;

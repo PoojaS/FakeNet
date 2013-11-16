@@ -6,6 +6,9 @@ import ui.geometry.SmallBoxIndex;
 
 import java.awt.Graphics;
 
+/**
+ * Models a box that can move alone a line
+ */
 public class MovingBox extends Box {
 
     private SmallBoxIndex smallBoxIndex;

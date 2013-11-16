@@ -5,8 +5,14 @@ import protocol.Packet;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Extend a node to implement routing
+ */
 public class Router extends Node {
 
+    /**
+     * Constant time delay in milli seconds taken by the router to process packets.
+     */
     public static final int ROUTER_DELAY = 2000;
     private Queue<Packet> packets;
     private Neighbors routes;
@@ -17,6 +23,9 @@ public class Router extends Node {
         packets = new LinkedList<Packet>();
     }
 
+    /**
+     * Respects router delay in processing packets
+     */
     @Override
     public void moveUnitOfData() {
         if (!packets.isEmpty()) {
@@ -31,6 +40,13 @@ public class Router extends Node {
         }
     }
 
+    /**
+     * Every packet received will be processed to route it to the correct destination. Assumes that no packet will be
+     * destined for the router itself
+     *
+     * @param packet
+     * @param wire
+     */
     @Override
     public void receive(Packet packet, Link wire) {
         if (!getId().equals(packet.getDestination())) {

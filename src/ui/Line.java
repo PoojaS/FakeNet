@@ -10,6 +10,10 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
+/**
+ * Models a line that is drawn on the canvas. Network simulator has not skewed lines. Such skewed lines if necessary,
+ * will be broken down into horizontal and vertical line segments.
+ */
 public class Line {
 
     private Box source;

@@ -1,5 +1,9 @@
 package protocol;
 
+/**
+ * Models a lower level packet like the IP packet. Modelling this level of packet in detail is assumed to be out of
+ * the scope of the simulator
+ */
 public class Packet {
 
     private UDPPacket packet;

@@ -4,9 +4,18 @@ import protocol.Packet;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * Models the link between to nodes
+ */
 public class Link {
 
+    /**
+     * The number of bytes the link can transfer per unit of time
+     */
     private Integer bandwidth = 100;
+    /**
+     * The time taken by a packet to reach the destination from the source
+     */
     private Integer wireDelayInSeconds;
     private Node source;
     private Node destination;
@@ -23,6 +32,13 @@ public class Link {
         return (source.getId().equals(destination) || this.destination.getId().equals(destination));
     }
 
+    /**
+     * Respects wire-delay when transferring the packet. Transparently decides the direction of transfer based on the
+     * initiator of transfer
+     *
+     * @param packet      Packet to transfer
+     * @param currentNode Id of the initiator of transfer
+     */
     public void send(Packet packet, String currentNode) {
         try {
             sleep(wireDelayInSeconds * 1000);

@@ -5,6 +5,9 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A first class collection that represents a set of sessions
+ */
 public class Sessions {
 
     private Map<String, Session> allSessions;

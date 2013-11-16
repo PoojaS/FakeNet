@@ -3,13 +3,24 @@ import mapping.Simulation;
 import model.Node;
 import model.Router;
 
+/**
+ * The Entry point into the simulator
+ */
 public class Simulator {
 
+    /**
+     * Wire delay configuration in seconds
+     */
     public static final Integer CONSTANT_DELAY = 2;
 
     private Simulation simulation;
     private TimeKeeper timeKeeper;
 
+    /**
+     * Build the network definition
+     *
+     * @return The network definition
+     */
     private NetworkDefinition network() {
         NetworkDefinition definition = new NetworkDefinition();
         definition
