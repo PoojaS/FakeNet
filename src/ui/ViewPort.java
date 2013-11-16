@@ -33,7 +33,7 @@ public class ViewPort extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics graphics) {
+    protected synchronized void paintComponent(Graphics graphics) {
         graphics.clearRect(0, 0, getWidth(), getHeight());
         for (Box box : components) {
             box.paint(graphics);

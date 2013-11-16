@@ -17,11 +17,30 @@ public class Box extends Plottable {
         this.size = size;
     }
 
-    public Point midPointOnRightHandSide() {
+    public Point facing(Box anotherBox) {
+        int xGradient = this.getPoint().getXpos() - anotherBox.getPoint().getXpos();
+        int yGradient = this.getPoint().getYpos() - anotherBox.getPoint().getYpos();
+        if (xGradient != 0) {
+            return (xGradient < 0) ? midPointOnRightHandSide() : midPointOnLeftHandSide();
+        } else {
+            return (yGradient < 0) ? midPointDown() : midPointOnTop();
+        }
+
+    }
+
+    private Point midPointOnTop() {
+        return new Point(point.getXpos() + (size / 2), point.getYpos());
+    }
+
+    private Point midPointDown() {
+        return new Point(point.getXpos() + (size / 2), point.getYpos() + size);
+    }
+
+    private Point midPointOnRightHandSide() {
         return new Point(point.getXpos() + size, point.getYpos() + (size / 2));
     }
 
-    public Point midPointOnLeftHandSide() {
+    private Point midPointOnLeftHandSide() {
         return new Point(point.getXpos(), point.getYpos() + (size / 2));
     }
 

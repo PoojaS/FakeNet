@@ -53,7 +53,7 @@ public class Node extends Observable {
     public void moveUnitOfData() {
         for (String destination : sessions.allBuddies()) {
             Link neighbor = neighbors.neighbor(destination);
-            Link actualDestination = (null == neighbor) ? defaultGateway : neighbor;
+            Link actualDestination = actualDestination(neighbor);
             Packets packets = sessions.read(getPacketSzie(actualDestination));
             packets.setSource(id);
             packets.computeChecksum();
@@ -75,7 +75,12 @@ public class Node extends Observable {
         }
     }
 
-    protected void move(Packet packet, Link actualDestination) {
+    protected Link actualDestination(Link neighbor) {
+        return (null == neighbor) ? defaultGateway : neighbor;
+    }
+
+    protected void move(Packet packet, Link neighbour) {
+        Link actualDestination = actualDestination(neighbour);
         actualDestination.send(packet, id);
         setChanged();
         notifyObservers(new InitiationOfTransfer(this, actualDestination));
