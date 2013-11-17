@@ -113,4 +113,8 @@ public class NetworkDefinition {
     public Point positionOf(Node node) {
         return plotOfNodes.get(node);
     }
+
+    public Node getbyId(String id) {
+        return idToNode.get(id);
+    }
 }

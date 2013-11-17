@@ -3,6 +3,7 @@ package mapping;
 import model.InitiationOfTransfer;
 import model.Link;
 import model.Node;
+import model.Router;
 import ui.Box;
 import ui.Line;
 import ui.ViewPort;
@@ -30,6 +31,8 @@ public class Simulation implements Observer {
      * Represents the definition of the network created by the user
      */
     private NetworkDefinition definition;
+
+    private int numberOfTicks = 0;
 
     /**
      * Constructs the view from the model and  starts the movement of boxes that represent the movement of data packets
@@ -87,7 +90,14 @@ public class Simulation implements Observer {
      * Receive a clock tick from time keeper and transmit it to the network
      */
     public void tick() {
+        if (numberOfTicks == 50) {
+            System.out.println("The avg service time is of router X is " + ((Router) definition.getbyId("X")).getTotalNumberOfPacketsHandled() / ((Router) definition.getbyId("X")).getTotalServiceTime());
+            System.out.println("The avg service time is of router Y is " + ((Router) definition.getbyId("Y")).getTotalNumberOfPacketsHandled() / ((Router) definition.getbyId("Y")).getTotalServiceTime());
+            System.out.println("The arrival rate at X is" + ((Router) definition.getbyId("X")).getTotalNumberOfPacketsHandled() / 50);
+            System.out.println("The arrival rate at Y is" + ((Router) definition.getbyId("Y")).getTotalNumberOfPacketsHandled() / 50);
+        }
         definition.network().moveUnitOfData();
+        numberOfTicks++;
     }
 
     /**
