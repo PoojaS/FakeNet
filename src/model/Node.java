@@ -95,6 +95,7 @@ public class Node extends Observable {
         Integer dataSize = actualDestination.getBandwidth();
         if (!packetsOfEqualSize) {
             dataSize = new Random().nextInt(dataSize);
+            System.out.println(dataSize);
         }
         return dataSize;
     }

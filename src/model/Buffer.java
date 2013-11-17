@@ -30,9 +30,10 @@ public class Buffer {
         while (bytesToRead > UDPPacket.HEADER_SIZE) {
             int currentPacketSize = Math.min(bytesToRead, UDPPacket.MAXIMUM_PACKET_SIZE);
             byte[] result = new byte[currentPacketSize];
-            for (int i = current, j = 0; j < currentPacketSize; i++, j++) {
+            for (int i = current, j = 0; j < currentPacketSize; j++) {
                 result[j] = data[i];
                 current = (current + 1) % data.length;
+                i = current;
             }
             packets.add(new Packet(new UDPPacket(result)));
             bytesToRead -= currentPacketSize;

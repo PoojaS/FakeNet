@@ -12,7 +12,7 @@ public class Link {
     /**
      * The number of bytes the link can transfer per unit of time
      */
-    private Integer bandwidth = 100;
+    private Integer bandwidth = 200;
     /**
      * The time taken by a packet to reach the destination from the source
      */

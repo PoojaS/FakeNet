@@ -13,9 +13,11 @@ public class Router extends Node {
     /**
      * Constant time delay in milli seconds taken by the router to process packets.
      */
-    public static final int ROUTER_DELAY = 2000;
+    public static final double ROUTER_DELAY = 0.005;
     private Queue<Packet> packets;
     private Neighbors routes;
+    private double totalServiceTime;
+    private double totalNumberOfPacketsHandled;
 
     public Router(String id) {
         super(id);
@@ -31,11 +33,12 @@ public class Router extends Node {
         if (!packets.isEmpty()) {
             Packet packet = packets.remove();
             try {
-                Thread.sleep(ROUTER_DELAY + packet.size());
+                double serviceTime = ROUTER_DELAY * Math.pow(2.132, (double) ((packet.size()) % 10));
+                totalServiceTime += serviceTime;
+                Thread.sleep((long) (serviceTime * 1000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("The size of " + getId() + " is " + packets.size());
             move(packet, routes.neighbor(packet.getDestination()));
         }
     }
@@ -49,9 +52,23 @@ public class Router extends Node {
      */
     @Override
     public void receive(Packet packet, Link wire) {
+        totalNumberOfPacketsHandled++;
         if (!getId().equals(packet.getDestination())) {
             packets.add(packet);
         }
+    }
+
+    public double getTotalServiceTime() {
+        return totalServiceTime;
+    }
+
+    /**
+     * Return the total number of packets handled
+     *
+     * @return
+     */
+    public double getTotalNumberOfPacketsHandled() {
+        return totalNumberOfPacketsHandled;
     }
 
     public void addRoute(Link link) {

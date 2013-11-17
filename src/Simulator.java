@@ -11,7 +11,7 @@ public class Simulator {
     /**
      * Wire delay configuration in seconds
      */
-    public static final Integer CONSTANT_DELAY = 2;
+    public static final Integer CONSTANT_DELAY = 5;
 
     private Simulation simulation;
     private TimeKeeper timeKeeper;
@@ -36,12 +36,9 @@ public class Simulator {
                 .defaultGateWay("B", "X", CONSTANT_DELAY)
                 .defaultGateWay("L", "Y", CONSTANT_DELAY)
                 .defaultGateWay("M", "Y", CONSTANT_DELAY)
-                .defaultGateWay("Y", "X", CONSTANT_DELAY)
-                .defaultGateWay("X", "Y", CONSTANT_DELAY)
                 .moveData("A", "B")
                 .moveData("B", "A")
                 .moveData("L", "M")
-                .moveData("L", "B")
                 .moveData("M", "L");
         return definition;
     }
