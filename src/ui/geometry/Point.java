@@ -1,8 +1,10 @@
 package ui.geometry;
 
 import model.Direction;
-import model.Link;
 
+/**
+ * Models a point on the canvas
+ */
 public class Point {
 
     private int xpos;

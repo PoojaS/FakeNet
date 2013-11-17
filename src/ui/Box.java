@@ -5,6 +5,9 @@ import ui.geometry.Point;
 
 import java.awt.Graphics;
 
+/**
+ * Models any box that is stationary on the canvas
+ */
 public class Box extends Plottable {
 
     protected int size = 50;
@@ -17,6 +20,12 @@ public class Box extends Plottable {
         this.size = size;
     }
 
+    /**
+     * Return point on this box facing the given box
+     *
+     * @param anotherBox
+     * @return
+     */
     public Point facing(Box anotherBox) {
         int xGradient = this.getPoint().getXpos() - anotherBox.getPoint().getXpos();
         int yGradient = this.getPoint().getYpos() - anotherBox.getPoint().getYpos();

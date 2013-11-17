@@ -1,6 +1,10 @@
 package model;
 
 
+/**
+ * Models the id of a link. Since every link is bi-directional, inverse links added to the model, if any, will take the
+ * same id as the forward link
+ */
 public class LinkId {
 
     private String id;

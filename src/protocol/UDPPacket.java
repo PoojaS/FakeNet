@@ -2,6 +2,9 @@ package protocol;
 
 import model.BinaryRepresentation;
 
+/**
+ * Models a UDP packet
+ */
 public class UDPPacket {
 
     public static final int HEADER_SIZE = 2;

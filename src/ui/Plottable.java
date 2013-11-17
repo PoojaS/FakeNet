@@ -3,6 +3,9 @@ package ui;
 
 import ui.geometry.Point;
 
+/**
+ * Models a component like a node that could be plotted onto the canvas
+ */
 public abstract class Plottable {
 
     protected Point point;

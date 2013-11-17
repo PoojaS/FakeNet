@@ -1,5 +1,8 @@
 package ui.geometry;
 
+/**
+ * Models a segment of a line
+ */
 public class LineSegment {
 
     private Point startingPoint;
@@ -10,6 +13,12 @@ public class LineSegment {
         this.endPoint = endPoint;
     }
 
+    /**
+     * Direction in which the line moves. A line that is moving along both x and y axes is considered to be varying only
+     * along the x axis
+     *
+     * @return
+     */
     public int axesOfChange() {
         if (startingPoint.getXpos() != endPoint.getXpos()) {
             return 0;

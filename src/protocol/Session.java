@@ -3,6 +3,11 @@ package protocol;
 
 import model.Buffer;
 
+/**
+ * Represents a communication session. Nodes use a single session for connection-less protocols. This design choice
+ * to use a session to handle both connection oriented and connection less communications helps to keep the
+ * implementation of a node simple.
+ */
 public class Session {
 
     private Buffer buffer;

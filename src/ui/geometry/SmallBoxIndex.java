@@ -3,6 +3,10 @@ package ui.geometry;
 
 import model.Direction;
 
+/**
+ * Models the position of a box moving along the line. Provides the ability to address pixels though an integer
+ * based index
+ */
 public class SmallBoxIndex {
 
     private int length;

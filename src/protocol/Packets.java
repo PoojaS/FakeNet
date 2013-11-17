@@ -3,6 +3,9 @@ package protocol;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A first class collection that represents a set of packets
+ */
 public class Packets {
 
     private List<Packet> packets;
@@ -51,7 +54,7 @@ public class Packets {
         }
     }
 
-    public void computeChecksum(){
+    public void computeChecksum() {
         for (Packet packet : packets) {
             packet.computeChecksum();
         }
